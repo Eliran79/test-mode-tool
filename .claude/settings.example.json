@@ -1,0 +1,105 @@
+{
+  "_comment": "Test Mode Tool - Example Settings Configuration",
+  "_description": "This file shows the configuration that gets added to your settings.json when test mode is enabled. Copy this to settings.json and modify as needed.",
+  
+  "hooks": {
+    "_comment_hooks": "Security hooks that intercept tool calls to block file modifications during test mode",
+    
+    "PreToolUse": {
+      "_comment_pretooluse": "Hooks that run before tools execute - these block destructive operations",
+      
+      "Edit|Write|MultiEdit|NotebookEdit": [
+        "./.claude/hooks/test_mode_pre_tool.sh"
+      ],
+      "Bash": [
+        "./.claude/hooks/test_mode_pre_tool.sh"
+      ]
+    },
+    
+    "PostToolUse": {
+      "_comment_posttooluse": "Hooks that run after tools execute - these log usage and violations",
+      
+      "Edit|Write|MultiEdit|NotebookEdit|Bash": [
+        "./.claude/hooks/test_mode_post_tool.sh"
+      ]
+    }
+  },
+  
+  "permissions": {
+    "_comment_permissions": "Permission settings - test mode works with any permission model",
+    
+    "defaultMode": "acceptEdits",
+    
+    "_comment_allow": "Optional: Explicitly allow specific operations during test mode",
+    "allow": [
+      "Read",
+      "LS", 
+      "Grep",
+      "Glob",
+      "Task",
+      "TodoWrite",
+      "Bash(git status:*)",
+      "Bash(git log:*)",
+      "Bash(git diff:*)",
+      "Bash(mvn test:*)",
+      "Bash(npm test:*)", 
+      "Bash(pytest:*)",
+      "Bash(cargo test:*)",
+      "Bash(ls:*)",
+      "Bash(find:*)",
+      "Bash(grep:*)",
+      "Bash(cat:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)"
+    ]
+  },
+  
+  "env": {
+    "_comment_env": "Environment variables for test mode operation - set automatically by hooks",
+    
+    "CLAUDE_TEST_MODE": "false",
+    "_comment_test_mode": "Set to 'true' when test mode is active, 'false' when inactive",
+    
+    "CLAUDE_TEST_MODE_SCOPE": "all",
+    "_comment_scope": "Test mode scope: 'all' (default), 'backend', 'frontend'",
+    
+    "CLAUDE_TEST_MODE_PROJECT": "",
+    "_comment_project": "Current project name for isolation - set automatically",
+    
+    "CLAUDE_TEST_MODE_PATH": "",
+    "_comment_path": "Full path to current project - used for isolation validation",
+    
+    "_comment_optional": "Optional environment variables for advanced configuration",
+    
+    "CLAUDE_TEST_MODE_STRICT": "false",
+    "_comment_strict": "Enable strict mode for enhanced validation (optional)",
+    
+    "CLAUDE_TEST_MODE_DEBUG": "false",
+    "_comment_debug": "Enable debug logging (optional, use for troubleshooting)",
+    
+    "CLAUDE_TEST_MODE_LOG_LEVEL": "info"
+    "_comment_log_level": "Log level: debug, info, warn, error (optional)"
+  },
+  
+  "_usage_instructions": {
+    "1": "Copy this file to .claude/settings.json",
+    "2": "Remove all _comment fields (lines starting with _)",
+    "3": "Run: .claude/hooks/test_mode_setup.sh enable",
+    "4": "Use: /project:test_mode:on to activate test mode",
+    "5": "The hooks will automatically manage the environment variables"
+  },
+  
+  "_security_notes": {
+    "hooks": "Hook scripts validate all inputs and prevent dangerous operations",
+    "isolation": "Each project maintains independent test mode state",
+    "backup": "Installation script creates backups before modifying settings",
+    "rollback": "Use .claude/hooks/test_mode_setup.sh disable to remove safely"
+  },
+  
+  "_advanced_configuration": {
+    "custom_backup_dir": "Set CLAUDE_TEST_MODE_BACKUP_DIR for custom backup location",
+    "log_retention": "Logs automatically rotate at 1MB with 10 file retention",
+    "timeout_duration": "Test mode can auto-deactivate after specified duration",
+    "scope_filtering": "Scope settings affect which parts of codebase are protected"
+  }
+}

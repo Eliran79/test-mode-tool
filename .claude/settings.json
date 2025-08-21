@@ -1,0 +1,9 @@
+{
+  "hooks": {
+    "PreToolUse": {},
+    "PostToolUse": {}
+  },
+  "env": {
+    "CLAUDE_TEST_MODE": "false"
+  }
+}
