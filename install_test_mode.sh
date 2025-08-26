@@ -42,14 +42,12 @@ readonly REQUIRED_DIRS=(
 )
 
 readonly CORE_FILES=(
-    "agents/README.md"
     "agents/test-mode-observer.md"
     "agents/test-reporter.md"
-    "commands/test_mode/README.md"
     "commands/test_mode/on.md"
     "commands/test_mode/off.md"
+    "commands/test_mode/clean.md"
     "commands/test_mode/status.md"
-    "hooks/README.md"
     "hooks/hook_utils.sh"
     "hooks/test_mode_pre_tool.sh"
     "hooks/test_mode_post_tool.sh"
@@ -368,8 +366,8 @@ update_settings_json() {
             cat > "$settings_file" << 'EOF'
 {
   "hooks": {
-    "PreToolUse": {},
-    "PostToolUse": {}
+    "PreToolUse": [],
+    "PostToolUse": []
   },
   "env": {
     "CLAUDE_TEST_MODE": "false"

@@ -176,8 +176,8 @@ modify_settings_file() {
                --arg strict "$strict" \
                --arg duration "$duration" \
                '
-               .hooks.PreToolUse."Edit|Write|MultiEdit|NotebookEdit|Bash" = ["./.claude/hooks/test_mode_pre_tool.sh"] |
-               .hooks.PostToolUse."Edit|Write|MultiEdit|NotebookEdit|Bash" = ["./.claude/hooks/test_mode_post_tool.sh"] |
+               .hooks.PreToolUse += [{"matcher": {"tools": ["Edit", "Write", "MultiEdit", "NotebookEdit", "Bash"]}, "hooks": ["./.claude/hooks/test_mode_pre_tool.sh"]}] |
+               .hooks.PostToolUse += [{"matcher": {"tools": ["Edit", "Write", "MultiEdit", "NotebookEdit", "Bash"]}, "hooks": ["./.claude/hooks/test_mode_post_tool.sh"]}] |
                .env.CLAUDE_TEST_MODE = "true" |
                .env.CLAUDE_TEST_MODE_PROJECT = $project_name |
                .env.CLAUDE_TEST_MODE_PATH = $project_path |
@@ -196,8 +196,8 @@ modify_settings_file() {
     elif [[ "$action" == "disable" ]]; then
         # Security: Disable test mode hooks
         if ! jq '
-               del(.hooks.PreToolUse."Edit|Write|MultiEdit|NotebookEdit|Bash") |
-               del(.hooks.PostToolUse."Edit|Write|MultiEdit|NotebookEdit|Bash") |
+               .hooks.PreToolUse = (.hooks.PreToolUse | map(select(.matcher.tools | index("Edit") == null and index("Write") == null and index("MultiEdit") == null and index("NotebookEdit") == null and index("Bash") == null))) |
+               .hooks.PostToolUse = (.hooks.PostToolUse | map(select(.matcher.tools | index("Edit") == null and index("Write") == null and index("MultiEdit") == null and index("NotebookEdit") == null and index("Bash") == null))) |
                .env.CLAUDE_TEST_MODE = "false" |
                del(.env.CLAUDE_TEST_MODE_PROJECT) |
                del(.env.CLAUDE_TEST_MODE_PATH) |

@@ -13,7 +13,7 @@ A defensive security system that prevents Claude Code from making destructive mo
 - ❌ Add mocks to bypass real implementation challenges
 - ❌ Refactor working code to "fix" test problems
 
-**Our Solution**: Test Mode Tool creates hard boundaries that channel AI persistence into productive observation rather than destructive modification.
+**Our Solution**: Test Mode Tool uses automation-first commands that create hard boundaries, channeling AI persistence into productive observation rather than destructive modification.
 
 ## 🛡️ What Test Mode Does
 
@@ -46,17 +46,20 @@ chmod +x .claude/hooks/*.sh
 
 ### 2. Use Test Mode
 ```bash
-# Activate test mode
-/project:test_mode:on
+# Activate test mode (fully automated via script)
+/test_mode:on
 
 # Run tests - Claude will analyze without modifying files
 npm test  # or mvn test, pytest, etc.
 
 # Check what Claude found
-/project:test_mode:status
+/test_mode:status
 
-# Deactivate when done
-/project:test_mode:off
+# Clean up completely (removes all artifacts)
+/test_mode:clean
+
+# Or just deactivate (preserves logs)
+/test_mode:off
 ```
 
 ### 3. Deploy to Other Projects
@@ -72,11 +75,14 @@ npm test  # or mvn test, pytest, etc.
 
 ### Three-Layer Protection System
 
-1. **Custom Slash Commands** - `/project:test_mode:on|off|status`
-   - User-friendly interface with project isolation
-   - Support for scoped activation and time limits
+1. **Custom Slash Commands** - `/test_mode:on|off|status|clean`
+   - **Automation-First Design**: All operations execute `test_mode_setup.sh` scripts
+   - **Zero Manual Steps**: Commands perform atomic operations via tested automation
+   - **User-friendly interface** with automatic project isolation
+   - **Comprehensive cleanup** via dedicated clean command
 
 2. **Security Hooks System** - Comprehensive file modification blocking
+   - **Automated Setup**: `test_mode_setup.sh` configures all hooks
    - PreToolUse hooks block destructive tools
    - PostToolUse hooks log violations and usage
    - Project context validation prevents interference
@@ -84,6 +90,21 @@ npm test  # or mvn test, pytest, etc.
 3. **Specialized Agents** - Read-only test analysis  
    - `test-mode-observer`: Analyzes tests without modifications
    - `test-reporter`: Generates comprehensive reports
+
+### How Commands Work
+
+Each command executes automation scripts directly for consistent behavior:
+
+- **`/test_mode:on`**: Executes `test_mode_setup.sh enable` with project context
+- **`/test_mode:off`**: Executes `test_mode_setup.sh disable` for clean deactivation  
+- **`/test_mode:status`**: Shows current project status from automation-managed state files
+- **`/test_mode:clean`**: Executes `test_mode_setup.sh cleanup` for complete artifact removal
+
+This automation-first approach ensures:
+- ✅ **Zero manual steps** - commands execute tested scripts directly
+- ✅ **Atomic operations** with rollback capability and error handling
+- ✅ **Security validation** at every operation
+- ✅ **Complete cleanup** via dedicated clean command that removes all artifacts
 
 ### Project Isolation
 - **Independent State**: Each project maintains separate test mode status
@@ -104,7 +125,7 @@ npm test  # or mvn test, pytest, etc.
 ### Project-Level (Team Deployment)
 Configuration committed to source control for consistent team behavior:
 ```bash
-# Install for entire team
+# Install for entire team (automated setup)
 .claude/hooks/test_mode_setup.sh enable
 git add .claude/
 git commit -m "Add Test Mode Tool"
@@ -116,13 +137,18 @@ Personal settings across all projects:
 # Copy to user directory
 cp -r .claude/commands/test_mode ~/.claude/commands/
 cp .claude/hooks/*.sh ~/.claude/hooks/
+# Automated user-level setup
 ~/.claude/hooks/test_mode_setup.sh enable --user
 ```
 
 ### Other Projects
-Use the secure installation script:
+Use the secure installation script with automation:
 ```bash
+# Automated installation with validation
 ./install_test_mode.sh /path/to/target/project
+
+# Dry run to verify before installation
+./install_test_mode.sh --dry-run /path/to/target/project
 ```
 
 ## 🛡️ Security Features
@@ -150,31 +176,34 @@ Use the secure installation script:
 
 ### Basic Workflow
 ```bash
-# Activate test mode for current project
-/project:test_mode:on
+# Activate test mode for current project (fully automated)
+/test_mode:on
 
 # Run failing tests
 npm test
 
 # Claude analyzes and documents issues without modifying code
-# Check findings with /project:test_mode:status
+# Check findings with /test_mode:status
 # Review suggestions in TodoWrite output
 
-# Deactivate and implement suggested fixes
-/project:test_mode:off
+# Clean up completely when done (removes all artifacts)
+/test_mode:clean
 ```
 
 ### Advanced Usage
 ```bash
-# Scoped activation (backend only)
-/project:test_mode:on --scope=backend
+# Scoped activation (backend only) - automated script handles configuration
+/test_mode:on --scope=backend
 
 # Time-limited session (auto-deactivate after 1 hour)
-/project:test_mode:on --duration=1h --strict
+/test_mode:on --duration=1h --strict
 
-# Multi-project isolation
-cd ~/project-a && /project:test_mode:on    # Active only in project-a
-cd ~/project-b && /project:test_mode:on    # Independent state in project-b
+# Multi-project isolation (each uses independent automation)
+cd ~/project-a && /test_mode:on    # Active only in project-a
+cd ~/project-b && /test_mode:on    # Independent state in project-b
+
+# Comprehensive cleanup (automated artifact removal)
+/test_mode:clean    # Removes all test mode artifacts and state files
 ```
 
 ## 🤝 Contributing

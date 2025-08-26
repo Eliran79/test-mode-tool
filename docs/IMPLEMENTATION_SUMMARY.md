@@ -13,7 +13,7 @@ Successfully implemented the **Test Mode Tool for Claude Code** - a comprehensiv
 - **`test-reporter.md`** - Comprehensive test session reporting and analytics
 
 #### 2. Project Infrastructure  
-- **Command Structure** - `/project:test_mode:on|off|status` slash commands
+- **Command Structure** - `/project:test_mode:on|off|status|clean` slash commands with automation
 - **Agent Directory** - Specialized test mode sub-agents with documentation
 - **Hook System** - Security hooks with project isolation
 - **Log Management** - Structured logging with rotation
@@ -98,8 +98,11 @@ chmod +x .claude/hooks/*.sh
 # Run tests safely - Claude will analyze without modifying
 npm test  # or mvn test, pytest, etc.
 
-# Deactivate when done
+# Deactivate when done (automated cleanup)
 /project:test_mode:off
+
+# Or comprehensive cleanup if needed
+/project:test_mode:clean
 ```
 
 ### Team Deployment Ready
@@ -110,7 +113,7 @@ git commit -m "Add Test Mode Tool defensive security system"
 git push
 
 # Team members can immediately use:
-# /project:test_mode:on|off|status
+# /project:test_mode:on|off|status|clean
 ```
 
 ## 📊 Expected Benefits
@@ -149,7 +152,7 @@ git push
 ## 🔧 System Architecture
 
 ### Three-Layer Protection
-1. **Custom Slash Commands** - User-friendly interface with project isolation
+1. **Custom Slash Commands** - Automated interface with project isolation and cleanup capabilities
 2. **Hooks System** - Block file modification tools with security validation  
 3. **Specialized Agents** - Read-only test analysis with restricted tool access
 
