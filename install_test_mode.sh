@@ -2,7 +2,7 @@
 
 # Test Mode Tool Secure Installation Script
 # Author: Claude Code Security Engineer
-# Version: 1.0
+# Version: 1.0.0
 # Description: Safely deploys Test Mode Tool components to target projects
 
 set -euo pipefail

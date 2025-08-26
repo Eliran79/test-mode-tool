@@ -7,6 +7,7 @@ This document describes the organization of the Test Mode Tool repository.
 ```
 test-mode-tool/
 ├── README.md                   # Main project overview and quick start
+├── VERSION                     # Semantic version number (1.0.0)
 ├── INSTALLATION.md            # Comprehensive installation guide
 ├── LICENSE                    # MIT License with defensive security notice
 ├── CLAUDE.md                  # Guidance for future Claude Code instances

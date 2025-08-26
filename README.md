@@ -2,6 +2,7 @@
 
 A defensive security system that prevents Claude Code from making destructive modifications during test analysis, ensuring test failures remain as valuable diagnostic information.
 
+[![Version](https://img.shields.io/badge/Version-1.0.0-blue.svg)](./VERSION)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Security](https://img.shields.io/badge/Security-Audited-green.svg)](./docs/security.md)
 

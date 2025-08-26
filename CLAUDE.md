@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Overview
 
-This repository contains a specification document for a **Test Mode Tool for Claude Code** designed to prevent the "never give up" problem where Claude Code makes destructive workarounds instead of proper error reporting when tests fail.
+This repository contains a **Test Mode Tool for Claude Code v1.0.0** - a defensive security system designed to prevent the "never give up" problem where Claude Code makes destructive workarounds instead of proper error reporting when tests fail.
 
 ## Key Files
 
