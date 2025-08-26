@@ -6,7 +6,6 @@ This directory contains detailed technical documentation for the Test Mode Tool 
 
 ### Core Specification
 - **[test_mode_tool_spec.md](test_mode_tool_spec.md)** - Complete system specification and design
-- **[IMPLEMENTATION_SUMMARY.md](IMPLEMENTATION_SUMMARY.md)** - Implementation status and technical details
 
 ### Agent Specifications  
 - **[test-mode-observer.md](test-mode-observer.md)** - Read-only test analysis agent

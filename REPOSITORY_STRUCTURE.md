@@ -10,6 +10,7 @@ test-mode-tool/
 ├── INSTALLATION.md            # Comprehensive installation guide
 ├── LICENSE                    # MIT License with defensive security notice
 ├── CLAUDE.md                  # Guidance for future Claude Code instances
+├── REPOSITORY_STRUCTURE.md    # This file - repository organization guide
 ├── .gitignore                 # Git exclusions for temporary files
 ├── install_test_mode.sh       # Secure installation script for other projects
 ├── docs/                      # Detailed technical documentation
@@ -22,7 +23,6 @@ test-mode-tool/
 docs/
 ├── README.md                          # Documentation overview and navigation
 ├── test_mode_tool_spec.md            # Complete system specification
-├── IMPLEMENTATION_SUMMARY.md         # Implementation status and details
 ├── test-mode-observer.md             # Read-only test analysis agent spec
 ├── test-reporter.md                  # Test reporting agent spec
 ├── hook-system-builder.md            # Secure hook system builder spec
@@ -36,14 +36,14 @@ docs/
 ├── settings.example.json              # Example configuration with comments
 ├── settings.json                      # Current project configuration
 ├── commands/test_mode/               # Slash commands
-│   ├── on.md                         # /project:test_mode:on command
-│   ├── off.md                        # /project:test_mode:off command
-│   ├── status.md                     # /project:test_mode:status command
+│   ├── on.md                         # /test_mode:on command
+│   ├── off.md                        # /test_mode:off command (automation-based)
+│   ├── clean.md                      # /test_mode:clean command (comprehensive)
+│   ├── status.md                     # /test_mode:status command
 │   └── README.md                     # Command documentation
 ├── agents/                           # Specialized sub-agents
 │   ├── test-mode-observer.md         # Read-only test analysis agent
-│   ├── test-reporter.md              # Comprehensive reporting agent
-│   └── README.md                     # Agent documentation
+│   └── test-reporter.md              # Comprehensive reporting agent
 ├── hooks/                            # Security hook system
 │   ├── test_mode_pre_tool.sh         # PreToolUse hook (blocks modifications)
 │   ├── test_mode_post_tool.sh        # PostToolUse hook (logging)
